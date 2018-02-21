@@ -13,5 +13,13 @@ sh setup.sh
 
 then prepare the .mat files with
 
+```
 data/unpack.m
+```
+
+Run the simulation example (the others are untested):
+
+```
+examples/LVscenario.m
+```
 
