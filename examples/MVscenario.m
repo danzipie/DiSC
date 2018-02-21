@@ -85,7 +85,7 @@ Y(LV_trafoBusTo,LV_trafoBusFrom) = -y1;
 
 % Load consumption data and sample according to sampling time Ts
 % Low voltage consumption profiles
-HouseData = load('data/house1to900days31startSample1.mat');  % Mat file containing consumption data
+HouseData = load('../data/house1to400days2startSample1.mat');  % Mat file containing consumption data
 % Interpolate 15 min. consumption data to match sampling
 t = 0:length(HouseData.Data.HouseP)-1;
 ti = 0:(length(HouseData.Data.HouseP)/(60*60*(1/Ts)*length(HouseData.Data.HouseP)/4)):length(HouseData.Data.HouseP)-1;
@@ -93,19 +93,19 @@ HouseData.Data.pTs = interp1(t,HouseData.Data.HouseP(:,:),ti);
 HouseData.Data.pTs = HouseData.Data.pTs.*1000;
 
 % Industry
-induData = load('data/induPowerWinter');
+induData = load('../data/induPower');
 t = 0:length(induData.p)-1;
 ti = 0:(length(induData.p)/(60*60*(1/Ts)*length(induData.p))):length(induData.p)-1;
 induData.pTs = interp1(t,induData.p(:,:),ti)';
 
 % Agriculture
-agriData = load('data/agriPowerWinter');
+agriData = load('../data/agriPower');
 t = 0:length(agriData.p)-1;
 ti = 0:(length(agriData.p)/(60*60*(1/Ts)*length(agriData.p))):length(agriData.p)-1;
 agriData.pTs = interp1(t,agriData.p(:,:),ti)';
 
 % Commercial
-commData = load('data/commPowerWinter');
+commData = load('../data/commPower');
 t = 0:length(commData.p)-1;
 ti = 0:(length(commData.p)/(60*60*(1/Ts)*length(commData.p))):length(commData.p)-1;
 commData.pTs = interp1(t,commData.p(:,:),ti)';

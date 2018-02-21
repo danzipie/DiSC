@@ -86,7 +86,7 @@ Y(LV_trafoBusTo,LV_trafoBusFrom) = -y1;
 
 % Load consumption data and sample according to sampling time Ts
 % Low voltage consumption profiles
-HouseData = load('data/house1to900days31startSample1.mat');  % Mat file containing consumption data
+HouseData = load('../data/house1to900days31startSample1.mat');  % Mat file containing consumption data
 % Interpolate 15 min. consumption data to match sampling
 t = 0:length(HouseData.Data.HouseP)-1;
 ti = 0:(length(HouseData.Data.HouseP)/(60*60*(1/Ts)*length(HouseData.Data.HouseP)/4)):length(HouseData.Data.HouseP)-1;
@@ -94,19 +94,19 @@ HouseData.Data.pTs = interp1(t,HouseData.Data.HouseP(:,:),ti);
 HouseData.Data.pTs = HouseData.Data.pTs.*1000;
 
 % Industry
-induData = load('data/induPowerWinter');
+induData = load('../data/induPower');
 t = 0:length(induData.p)-1;
 ti = 0:(length(induData.p)/(60*60*(1/Ts)*length(induData.p))):length(induData.p)-1;
 induData.pTs = interp1(t,induData.p(:,:),ti)';
 
 % Agriculture
-agriData = load('data/agriPowerWinter');
+agriData = load('../data/agriPower');
 t = 0:length(agriData.p)-1;
 ti = 0:(length(agriData.p)/(60*60*(1/Ts)*length(agriData.p))):length(agriData.p)-1;
 agriData.pTs = interp1(t,agriData.p(:,:),ti)';
 
 % Commercial
-commData = load('data/commPowerWinter');
+commData = load('../data/commPower');
 t = 0:length(commData.p)-1;
 ti = 0:(length(commData.p)/(60*60*(1/Ts)*length(commData.p))):length(commData.p)-1;
 commData.pTs = interp1(t,commData.p(:,:),ti)';
@@ -165,7 +165,7 @@ Qin = [Qbus1 Qbus2 Qbus3 Qbus4 Qbus5 Qbus6 Qbus7 Qbus8 Qbus9 Qbus10 ...
 %% Setup assets
 % Medium voltage PV power plants
 % Solar irradiance
-param.lat = 56.889;     % Latitude for Sørup (degrees)
+param.lat = 56.889;     % Latitude for Sï¿½rup (degrees)
 param.t = 0.75;         % Transmittance (unitless)
 param.S = 1367;         % Solar constant (w/m^2)
 param.p = 100;          % Air pressure (Kpa)
@@ -569,7 +569,7 @@ figure
 plot(tvec,abs(vOut(1:N,9:end))/0.4e3)
 title('Voltages LV')
 xlabel('Time [hrs]')
-ylabel('Volatges [PU]')
+ylabel('Voltages [PU]')
 ylim([0.8 1.2])
 
 % Voltages during a day without control
@@ -588,10 +588,6 @@ if withCtrl==false
     set(gca,'YTick',[0.85,0.9,0.95,1,1.05,1.1,1.15])
     set(gca,'YTickLabel',{'0.85','0.90','0.95','1.00','1.05','1.10','1.15'})
 
-    SAVE_PATH = [cd '/figures'];
-    SAVE_MF = true;
-    SIZE = 'paper';
-    my_save_matlabfrag_papers('LVscenario_noCtrl',SAVE_MF,SIZE,SAVE_PATH);
 else
     figure
     plot(9:15,abs(vOut(735,9:end))/400,'-o',9:15,abs(vOut(1380,9:end))/400,'-s',9:15,ones(1,7)*1.1,'--r',9:15,ones(1,7)*0.9,'--r')
@@ -607,10 +603,6 @@ else
     set(gca,'YTick',[0.85,0.9,0.95,1,1.05,1.1,1.15])
     set(gca,'YTickLabel',{'0.85','0.90','0.95','1.00','1.05','1.10','1.15'})
 
-    SAVE_PATH = [cd '/figures'];
-    SAVE_MF = true;
-    SIZE = 'paper';
-    my_save_matlabfrag_papers('LVscenario_Ctrl',SAVE_MF,SIZE,SAVE_PATH);
 end
 
 figure

@@ -106,7 +106,7 @@ Y(LV_trafoBusTo,LV_trafoBusFrom) = -y1;
 
 %% Load consumption data and upsample to sampling time (Ts)
 % Residential consumption profiles
-HouseData = load('../data/houseData400_oneDay.mat');  % Mat file containing consumption data
+HouseData = load('../data/house1to400days2startSample1.mat');  % Mat file containing consumption data
 % Interpolate 15 min. consumption data to match sampling
 t = 0:size(HouseData.Data.HouseP,1)-1;
 ti = 0:(size(HouseData.Data.HouseP,1)/(60*60*(1/Ts)*size(HouseData.Data.HouseP,1)/4)):size(HouseData.Data.HouseP,1)-1;

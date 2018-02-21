@@ -16,7 +16,8 @@ LV_zBase = LV_vBase^2/LV_sBase;         % Impedance base [Ohm]
 Y = benchmarkAdmittanceMatrix('both',true,true,MV_zBase,LV_zBase,onPU);
 Yorg = Y; % Used for tap changing transformers and switches
 
-% Power facotrs
+% Power facotrsparam.numLinksIn = 1;
+param.numLinksOut = 1;
 pfIndu = 0.9;       % Power factor industry
 pfAgri = 0.9;       % Power factor agriculture
 pfResi = 0.97;      % Power factor Residential
@@ -25,31 +26,31 @@ pfComm = 0.95;      % Power factor commercial
 %% Setup Inflexible Consumption
 % Medium voltage consumption profiles
 % Supermarket
-smData = load('mv_grid/consData/smPowerJan2013.mat');  % Mat file containing consumption data
+smData = load('data/smPowerJan.mat');  % Mat file containing consumption data
 t = 0:length(smData.power)-1;
 ti = 0:(length(smData.power)/(60*60*(1/Ts)*length(smData.power)/60)):length(smData.power)-1;
 smData.pTs = interp1(t,smData.power(:,:),ti);
 
 % Industry
-induData = load('mv_grid/consData/induPowerWinter');
+induData = load('data/induPower');
 t = 0:length(induData.p)-1;
 ti = 0:(length(induData.p)/(60*60*(1/Ts)*length(induData.p))):length(induData.p)-1;
 induData.pTs = interp1(t,induData.p(:,:),ti)';
 
 % Agriculture
-agriData = load('mv_grid/consData/agriPowerWinter');
+agriData = load('data/agriPower');
 t = 0:length(agriData.p)-1;
 ti = 0:(length(agriData.p)/(60*60*(1/Ts)*length(agriData.p))):length(agriData.p)-1;
 agriData.pTs = interp1(t,agriData.p(:,:),ti)';
 
 % Commercial
-commData = load('mv_grid/consData/commPowerWinter');
+commData = load('data/commPower');
 t = 0:length(commData.p)-1;
 ti = 0:(length(commData.p)/(60*60*(1/Ts)*length(commData.p))):length(commData.p)-1;
 commData.pTs = interp1(t,commData.p(:,:),ti)';
 
 % Low voltage consumption profiles
-HouseData = load('lv_grid/consData/house1to120days31startSample17280.mat');  % Mat file containing consumption data
+HouseData = load('data/house1to400days2startSample1.mat');  % Mat file containing consumption data
 % Interpolate 15 min. consumption data to match sampling
 t = 0:length(HouseData.Data.HouseP)-1;
 ti = 0:(length(HouseData.Data.HouseP)/(60*60*(1/Ts)*length(HouseData.Data.HouseP)/4)):length(HouseData.Data.HouseP)-1;
@@ -281,7 +282,7 @@ Y(LV_tc1BusTo,LV_tc1BusFrom) = -y1;
 % Solar PV power plant
 % Medium voltage (bus 5)
 % Solar irradiance
-param.lat = 56.889;     % Latitude for Sørup (degrees)
+param.lat = 56.889;     % Latitude for Sï¿½rup (degrees)
 param.t = 0.75;         % Transmittance (unitless)
 param.S = 1367;         % Solar constant (w/m^2)
 param.p = 100;          % Air pressure (Kpa)
