@@ -5,11 +5,10 @@ clc; clear; close all;
 
 % Setup
 dataPath = 'HouseDataCSV/';
-savePath = '/Users/rasmus/Documents/uni/benchmark_model_code/svn/matlab/lv_grid/consData/';
 
 fromHouse = 1;
-toHouse = 400;
-numDays = 2;
+toHouse = 900;
+numDays = 31;
 % Date format: 'yyyy-mm-dd HH:MM:SS', starts from:  2011-01-01 00:15:00, 
 % and is sampled every 15 min.
 % To start at different date, set startSample.
@@ -40,6 +39,4 @@ saveFile = ['house' num2str(fromHouse) 'to' num2str(toHouse) 'days' num2str(numD
 Data.time = time;
 Data.HouseP = HouseP;
 curPath = pwd;
-cd(savePath)
 save(saveFile,'Data')
-cd(curPath)
